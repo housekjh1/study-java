@@ -9,3 +9,6 @@
 - JDK 17 (필수)
 - Eclipse
 
+## Ref.
+
+- [gitignore](https://www.toptal.com/developers/gitignore)
