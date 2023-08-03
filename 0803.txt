@@ -1,0 +1,1 @@
+Scanner 사용 시 Ctrl + Shift + O 눌러야 라이브러리 임포트됨
