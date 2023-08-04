@@ -4,19 +4,35 @@ public class TestGugudan2 {
 
 	public static void main(String[] args) {
 		
-		for (int k = 0; k <= 9; k++) {
+		int a = 2;
+		int a2 = 3;
+		int a3 = 4;
 		
-			for (int j = 2; j <= 9; j++) {
-				
-				for(int i = 1; i <= 9; i++) {
-				
-					int a = j * i;
-					System.out.println(j + " * " + i + " = " + a);
-				}
-				System.out.println();
+		for (int x = 0; x < 3; x++) {
+			
+			for (int b = 1; b <= 9; b++) {
+										
+					int c = a * b;
+					System.out.print(a + " * " + b + " = " + c);
+					
+					int d = a2 * b;
+					System.out.print("\t" + a2 + " * " + b + " = " + d);
+					
+					if (a3 < 10) {
+						
+						int e = a3 * b;
+						System.out.println("\t" + a3 + " * " + b + " = " + e);
+					} else System.out.println();
+									
 			}
+			
+			a += 3;
+			a2 += 3;
+			a3 += 3;
+			System.out.println();
+			
 		}
-	
+			
 	}
 
 }
