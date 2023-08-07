@@ -21,7 +21,7 @@ public class Test38 {
 					System.out.print("\t");
 				}
 			}	
-		System.out.println("\n");
+		System.out.println("\n\n");
 		}
 		/*	
 		for (int i = 0; i < arr.length; i++) {
