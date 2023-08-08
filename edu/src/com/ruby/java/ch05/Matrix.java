@@ -20,15 +20,15 @@ public class Matrix {
 	static void multiplyMatrix(int[][] a, int[][] d) {
 		
 		//E = A x D
-		int[][] e = new int[3][4];
+		int[][] e = new int[3][5];
 		int sumAD = 0;
 		//코드 작성
 		for (int i = 0; i < e.length; i++) {
 			for (int j = 0; j < e[0].length; j++) {
-				
+				sumAD = 0;
 				for (int k = 0; k < a[0].length; k++) {
 					
-					sumAD += (a[j][k] * d[k][j]);
+					sumAD += (a[i][k] * d[k][j]);
 				}
 				e[i][j] = sumAD;
 			}
@@ -52,21 +52,30 @@ public class Matrix {
 		
 		int[][] a = new int[3][4];
 		int[][] b = new int[3][4];
-		int[][] d = new int[3][4];
-		//int[][] d = new int[4][5];
+		int[][] d = new int[4][5];
 		
 		for (int i = 0; i < a.length; i++) {
 			for (int j = 0; j < a[0].length; j++) {
 				
 				a[i][j] = random.nextInt(20);
 				b[i][j] = random.nextInt(20);
-				d[i][j] = random.nextInt(20);
+				
 								
-				addMatrix(a, b);
-				multiplyMatrix(a, d);
+				
 			}
 		}
-		
+		addMatrix(a, b);
+		for (int i = 0; i < d.length; i++) {
+			for (int j = 0; j < d[0].length; j++) {
+				
+				d[i][j] = random.nextInt(20);
+				
+				
+								
+				
+			}
+		}
+		multiplyMatrix(a, d);
 		
 		/*for (int k = 0; k < d.length; k++) {
 			for (int j = 0; j < d[0].length; j++) {
