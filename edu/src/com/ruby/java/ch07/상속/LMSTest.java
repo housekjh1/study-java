@@ -1,5 +1,8 @@
 package com.ruby.java.ch07.상속;
 
+import com.ruby.java.ch07.상속.Employee;
+import com.ruby.java.ch07.상속.Student;
+
 public class LMSTest {
 
 	public static void main(String[] args) {

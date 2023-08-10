@@ -1,5 +1,7 @@
 package com.ruby.java.ch07.상속;
 
+import com.ruby.java.ch07.상속.Person;
+
 public class Professor extends Person {
 //	private String name;
 //	private int age;
