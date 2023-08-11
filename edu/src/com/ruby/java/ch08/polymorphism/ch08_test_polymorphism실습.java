@@ -16,6 +16,9 @@ class Truck extends Vehicle {
 	public Truck(String engineType, int numberWheels, int weight) {
 		super(engineType, numberWheels); this.weight = weight;
 	}
+	public void displayWheels() {
+		System.out.println("[트럭]\n연료: " + engineType + ", 바퀴갯수: " + numberWheels + "개, 무게: " + weight + "t");
+	}
 }
 
 class Car extends Vehicle {
@@ -23,11 +26,17 @@ class Car extends Vehicle {
 	public Car(String engineType, int numberWheels, int vehicleOccupants) {
 		super(engineType, numberWheels); this.vehicleOccupants = vehicleOccupants;
 	}
+	public void displayWheels() {
+		System.out.println("[승용차]\n연료: " + engineType + ", 바퀴갯수: " + numberWheels + "개, 탑승인원: " + vehicleOccupants + "인");
+	}
 }
 class MotorCycle extends Vehicle {
 	int price;
 	public MotorCycle(String engineType, int numberWheels, int price) {
 		super(engineType, numberWheels); this.price = price;
+	}
+	public void displayWheels() {
+		System.out.println("[오토바이]\n연료: " + engineType + ", 바퀴갯수: " + numberWheels + "개, 가격: " + price + "만원");
 	}
 }
 public class ch08_test_polymorphism실습 {
