@@ -57,4 +57,28 @@ public class MyLinkedList {
 			next = next.link;
 		}
 	}
+	
+	public void delete(String data) {
+		if (head == null) {
+			System.out.println("삭제할 데이터가 없습니다.");
+		} else {
+			Node p = head;
+			Node q = p;
+			while (p != null) {
+				String s;
+				s = p.data;
+				
+				if (s.compareTo(data) == 0) {
+					q.link = p.link;
+					return;
+				} else {
+					q = p;
+					p = p.link;
+				}
+			}
+			System.out.println("삭제할 데이터가 없습니다.");
+			return;
+		}
+
+	}
 }
