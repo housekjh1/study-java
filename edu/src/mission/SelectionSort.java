@@ -1,44 +1,42 @@
 package mission;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class SelectionSort {
 	
-//	private int[] initializeArray() {//중복없이 랜덤값 10개 받기
-//		Random rd = new Random();
-//		int[] arr = new int[10];
-//		int i, j;
-//		
-//		for (i = 0; i < arr.length; ) {
-//			int r = rd.nextInt(1, 101);// 1 ~ 100
-////			rd.nextInt(100);// 0 ~ 99
-//			for (j = 0; j < i; j++) {
-//				if (arr[j] == r) break;
-//			}
-//			if (j == i) arr[i++] = r;
-//		}
-//		
-//		return arr;
-//		
-//	}
-	
-	private int[] initializeArray1() {
+	private int[] initializeArray() {//중복없이 랜덤값 10개 받기
 		Random rd = new Random();
-		List<Integer> list = new ArrayList<>();
-		
-		while(list.size() < 10) {
-			int r = rd.nextInt(1, 101);// 1 ~ 100
-			if(!list.contains(r)) list.add(r);
-		}
 		int[] arr = new int[10];
-		for (int i = 0; i < list.size(); i++)
-			arr[i] = list.get(i);
+		int i, j;
+		
+		for (i = 0; i < arr.length; ) {
+			int r = rd.nextInt(1, 101);// 1 ~ 100
+//			rd.nextInt(100);// 0 ~ 99
+			for (j = 0; j < i; j++) {
+				if (arr[j] == r) break;
+			}
+			if (j == i) arr[i++] = r;
+		}
 		
 		return arr;
 		
 	}
+	
+//	private int[] initializeArray1() {
+//		Random rd = new Random();
+//		List<Integer> list = new ArrayList<>();
+//		
+//		while(list.size() < 10) {
+//			int r = rd.nextInt(1, 101);// 1 ~ 100
+//			if(!list.contains(r)) list.add(r);
+//		}
+//		int[] arr = new int[10];
+//		for (int i = 0; i < list.size(); i++)
+//			arr[i] = list.get(i);
+//		
+//		return arr;
+//		
+//	}
 	
 	private void printArray(int[] arr) {
 		for (int i : arr) {
@@ -74,8 +72,8 @@ public class SelectionSort {
 		
 		SelectionSort ss = new SelectionSort();
 		
-		int[] arr = ss.initializeArray1();
-//		int[] arr = ss.initializeArray();
+		int[] arr = ss.initializeArray();
+//		int[] arr = ss.initializeArray1();
 		arr = ss.sort(arr);
 		ss.printArray(arr);
 		
