@@ -1,26 +1,26 @@
 package mission;
 
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
-public class SelectionSort {
-	
-	private int[] initializeArray() {//중복없이 랜덤값 10개 받기
-		Random rd = new Random();
-		int[] arr = new int[10];
-		int i, j;
-		
-		for (i = 0; i < arr.length; ) {
-			int r = rd.nextInt(1, 101);// 1 ~ 100
-//			rd.nextInt(100);// 0 ~ 99
-			for (j = 0; j < i; j++) {
-				if (arr[j] == r) break;
-			}
-			if (j == i) arr[i++] = r;//(j == i)는 루프를 다 돌았을 때를 의미 / for문 break;로 나왔을 때 입력을 방지하기 위함
-		}
-		
-		return arr;
-		
-	}
+public class SelectionSort1 {
+//	private int[] initializeArray() {//중복없이 랜덤값 10개 받기
+//		Random rd = new Random();
+//		int[] arr = new int[10];
+//		int i, j;
+//		
+//		for (i = 0; i < arr.length; ) {
+//			int r = rd.nextInt(1, 101);// 1 ~ 100
+////			rd.nextInt(100);// 0 ~ 99
+//			for (j = 0; j < i; j++) {
+//				if (arr[j] == r) break;
+//			}
+//			if (j == i) arr[i++] = r;//(j == i)는 루프를 다 돌았을 때를 의미 / for문 break;로 나왔을 때 입력을 방지하기 위함
+//		}
+//		
+//		return arr;
+//		
+//	}
 	
 //	private int[] initializeArray1() {
 //		Random rd = new Random();
@@ -70,12 +70,25 @@ public class SelectionSort {
 	
 	public static void main(String[] args) {
 		
-		SelectionSort ss = new SelectionSort();
+		try (BufferedReader br = new BufferedReader(new FileReader("sortinput.txt"))) {
+			String s = br.readLine();
+			System.out.println(s);
+			int[] arr = new int[10];
+			
+			for (int[] i : s) {
+				arr = i;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		int[] arr = ss.initializeArray();
+		SelectionSort ss = new SelectionSort();
+			
+//		int[] arr = ss.initializeArray();
 //		int[] arr = ss.initializeArray1();
-		arr = ss.sort(arr);
-		ss.printArray(arr);
+//		arr = ss.sort(arr);
+//		ss.printArray(arr);
 		
 	}
 }
