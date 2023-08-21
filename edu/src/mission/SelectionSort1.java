@@ -2,41 +2,10 @@ package mission;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectionSort1 {
-//	private int[] initializeArray() {//중복없이 랜덤값 10개 받기
-//		Random rd = new Random();
-//		int[] arr = new int[10];
-//		int i, j;
-//		
-//		for (i = 0; i < arr.length; ) {
-//			int r = rd.nextInt(1, 101);// 1 ~ 100
-////			rd.nextInt(100);// 0 ~ 99
-//			for (j = 0; j < i; j++) {
-//				if (arr[j] == r) break;
-//			}
-//			if (j == i) arr[i++] = r;//(j == i)는 루프를 다 돌았을 때를 의미 / for문 break;로 나왔을 때 입력을 방지하기 위함
-//		}
-//		
-//		return arr;
-//		
-//	}
-	
-//	private int[] initializeArray1() {
-//		Random rd = new Random();
-//		List<Integer> list = new ArrayList<>();
-//		
-//		while(list.size() < 10) {
-//			int r = rd.nextInt(1, 101);// 1 ~ 100
-//			if(!list.contains(r)) list.add(r);
-//		}
-//		int[] arr = new int[10];
-//		for (int i = 0; i < list.size(); i++)
-//			arr[i] = list.get(i);
-//		
-//		return arr;
-//		
-//	}
 	
 	private void printArray(int[] arr) {
 		for (int i : arr) {
@@ -70,25 +39,32 @@ public class SelectionSort1 {
 	
 	public static void main(String[] args) {
 		
+		List<Integer> numbers = new ArrayList<>();
+		
 		try (BufferedReader br = new BufferedReader(new FileReader("sortinput.txt"))) {
-			String s = br.readLine();
-			System.out.println(s);
-			int[] arr = new int[10];
+			String line;
 			
-			for (int[] i : s) {
-				arr = i;
+			while ((line = br.readLine()) != null) {
+				int num = Integer.parseInt(line);
+				numbers.add(num);
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		SelectionSort ss = new SelectionSort();
-			
+		int[] arr = new int[numbers.size()];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = numbers.get(i);
+		}
+		
+		
+		SelectionSort1 ss = new SelectionSort1();
+		
 //		int[] arr = ss.initializeArray();
 //		int[] arr = ss.initializeArray1();
-//		arr = ss.sort(arr);
-//		ss.printArray(arr);
+		arr = ss.sort(arr);
+		ss.printArray(arr);
 		
 	}
 }
