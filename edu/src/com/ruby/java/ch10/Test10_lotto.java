@@ -75,8 +75,10 @@ public class Test10_lotto {
 	static void checkWinner(HashSet<Integer> w, List<Integer> elem) {
 
 		int count = 0;
+		List<Integer> L = new ArrayList<>(elem);
 		for (int i = 0; i < L.size() - 1; i++) {
 
+			count += 1;
 		}
 		switch (count) {
 		case 0:

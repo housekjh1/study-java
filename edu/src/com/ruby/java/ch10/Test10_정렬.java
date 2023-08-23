@@ -44,28 +44,31 @@ public class Test10_정렬 {
 		int data[] = new int[10];
 		Random rdm = new Random();
 		for (int i = 0; i < data.length; i ++) {
-		//
+		//data[i] = rdm.nextInt();
 		}
 		for (int n : data)
 			System.out.print(n + " ");
 		
 		//
 		//Collections.sort(null);//배열은 collection이 아니므로 사용 안됨
+		Arrays.sort(data);
 		System.out.println();
 		for (int n : data)
 			System.out.print(n + " ");
 		//---------------------
 		System.out.println("2. ArrayList<Integer>정수 배열의 정렬\n");
 		for (int i = 0; i < data.length; i ++) {
-			//
+			//난수 입력
+			data[i] = rdm.nextInt();
 		}
 		ArrayList<Integer> alist = new ArrayList<>();
 		for (int j = 0; j < data.length; j++) {
-			//
+			//data[i] = rdm.nextInt();
 		}
 		for (int n : alist)
 			System.out.print(n + " ");
-		//
+		//alist.sort(null);
+		//Collections.sort(alist);
 		System.out.println("\n");
 		for (int n : alist)
 			System.out.print(n + " ");
@@ -76,7 +79,10 @@ public class Test10_정렬 {
 		st[3] = new Student(88,"park");st[4] = new Student(33,"go");st[5] = new Student(55,"song");
 		for (Student stx : st)
 			System.out.println(stx);
-		//
+		//정렬코드 구현
+		Arrays.sort(st);
+		Arrays.sort(null, null);//comparator 사용
+		
 		System.out.println();
 		for (Student stx : st)
 			System.out.println(stx);
@@ -86,11 +92,14 @@ public class Test10_정렬 {
 		st[0] = new Student(11,"hong");st[1] = new Student(51,"kim");st[2] = new Student(31,"han");
 		st[3] = new Student(88,"park");st[4] = new Student(33,"go");st[5] = new Student(55,"song");
 		for (int j = 0; j < st.length; j++) {
-			//
+			//blist.add(st[j]);
 		}
 		for (Student stx : blist)
 			System.out.println(stx);
-		//
+		//정렬코드 추가
+		blist.sort(null);
+		Arrays.sort(null, null);
+		
 		System.out.println();
 		for (Student stx : blist)
 			System.out.println(stx);
