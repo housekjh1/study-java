@@ -14,9 +14,22 @@ class ListComparator implements Comparator<List<Integer>> {
 	public int compare(List<Integer> l1, List<Integer> l2) {
 		Iterator<Integer> ait = l1.iterator();
 		Iterator<Integer> bit = l2.iterator();
-		while(ait.hasNext()) {
-			if(l1.)
+
+		if (ait.hasNext() && bit.hasNext()) {
+			Integer a = ait.next();
+			Integer b = bit.next();
+
+			return a.compareTo(b); // 첫 번째 요소 비교
 		}
+
+		// 리스트가 비어있는 경우 또는 첫 번째 요소를 비교할 수 없는 경우
+		// 여기에서 처리 방법을 결정하셔야 합니다.
+		// 예를 들어, 두 리스트가 같다고 판단하거나,
+		// 비어있는 리스트가 더 작다고 판단할 수 있습니다.
+
+		// 여기에 추가적인 처리를 하거나 반환 값을 설정해주세요.
+
+		return 0; // 일단 두 리스트를 같다고 가정합니다.
 	}
 }
 
@@ -44,14 +57,14 @@ public class Test10_lotto {
 			List<Integer> L = new ArrayList<>(lotto);
 
 			Collections.sort(L);
-			// System.out.println(L);
+//			System.out.println(L);
 			al.add(L);
 		}
-		// System.out.println("lot = " + al);
 
-		// Collections.sort((List<Integer>) al);
+//		 Collections.sort((List<T>) al);
+//		 System.out.println("lot = " + al);
 		al.sort(new ListComparator());
-		// System.out.println("lot = " + al);
+		System.out.println("lot = " + al);
 		// hashset의 리스트를 정렬하는 알고리즘 개발
 		// hashset를 arrayList로 변환
 		// 당첨번호 추첨
@@ -68,7 +81,8 @@ public class Test10_lotto {
 
 	static void winnerLotto(HashSet<Integer> w, List<List<Integer>> al) {
 		for (int i = 0; i < al.size(); i++) {
-			checkWinner();
+			List<Integer> elem = al.get(i);
+			checkWinner(w, elem);
 		}
 	}
 
@@ -77,8 +91,9 @@ public class Test10_lotto {
 		int count = 0;
 		List<Integer> L = new ArrayList<>(elem);
 		for (int i = 0; i < L.size() - 1; i++) {
-
-			count += 1;
+			if (w.contains(L.get(i))) {
+	            count++;
+	        }
 		}
 		switch (count) {
 		case 0:
