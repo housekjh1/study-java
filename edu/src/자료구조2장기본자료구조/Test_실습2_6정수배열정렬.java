@@ -33,7 +33,7 @@ public class Test_실습2_6정수배열정렬 {
 			}
 		}
 
-		static void inputData(int[] data) {
+		static void inputData(int[] data) {//랜덤값 입력
 			Random rd = new Random();
 			for (int i = 0; i < data.length; i++) {
 				data[i] = rd.nextInt(10);
@@ -41,7 +41,7 @@ public class Test_실습2_6정수배열정렬 {
 		}
 
 		static void sortData(int[] arr) {
-			List<Integer> L = new ArrayList<>();
+			List<Integer> L = new ArrayList<>();// 배열을 List 변환 후 Collections.sort() 사용 후 다시 List를 배열로 변환
 			for (int i = 0; i < arr.length; i++) {
 				L.add(arr[i]);
 			}
@@ -59,7 +59,7 @@ public class Test_실습2_6정수배열정렬 {
 
 		static void reverse(int[] a) {
 			for (int i = 0; i < a.length / 2; i++) {
-				swap(a, i, a.length - 1 - i);
+				swap(a, i, a.length - 1 - i);//처음 인덱스 값과 마지막 인덱스 값의 치환 후 반을 기점으로 데칼코마니
 			}
 		}
 
