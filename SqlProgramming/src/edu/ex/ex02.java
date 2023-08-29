@@ -19,12 +19,15 @@ public class ex02 {
 		con = DriverManager.getConnection(url, username, password);// 데이터베이스 연결 생성
 		
 		Statement st = con.createStatement();// SQL 문 실행을 위한 Statement 객체 생성, 질의를 하기위한 목적
-		ResultSet rs = st.executeQuery("select country.code,city.name,city.population from city,country where city.countrycode = country.code and country.code = 'KOR' order by city.population desc");// SQL 쿼리 실행
+		ResultSet rs = st.executeQuery("select countrycode,name,population"
+									+ " from city"
+									+ " where countrycode = 'KOR'"
+									+ " order by population desc");// SQL 쿼리 실행
 		
 		while (rs.next()) {// 가상 출발지는 빈 행, 다음 행(첫 번째 행)으로 커서를 가리키고 끝 행 이후 null이 나오고 false 출력
-			System.out.print(String.format("%10s", rs.getString("country.code")));
-			System.out.print(String.format("%20s", rs.getString("city.name")));
-			System.out.print(String.format("%20d", rs.getInt("city.population")) + "\n");
+			System.out.print(String.format("%10s", rs.getString("countrycode")));
+			System.out.print(String.format("%20s", rs.getString("name")));
+			System.out.print(String.format("%20d", rs.getInt("population")) + "\n");
 		}
 		rs.close();
 		st.close();
