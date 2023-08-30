@@ -1,8 +1,5 @@
 package 자료구조2장기본자료구조;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class Test_실습2_6정수배열정렬 {
@@ -25,7 +22,7 @@ public class Test_실습2_6정수배열정렬 {
 			for (int num : data) {
 				System.out.print(num + " ");
 			}
-			
+
 			reverseSort(data);// 역순으로 재배치 - 정렬 아님
 			System.out.println();
 			for (int num : data) {
@@ -33,22 +30,30 @@ public class Test_실습2_6정수배열정렬 {
 			}
 		}
 
-		static void inputData(int[] data) {//랜덤값 입력
+		static void inputData(int[] data) {// 랜덤값 입력
 			Random rd = new Random();
 			for (int i = 0; i < data.length; i++) {
-				data[i] = rd.nextInt(10);
+				data[i] = rd.nextInt(10) + 1;
 			}
 		}
 
 		static void sortData(int[] arr) {
-			List<Integer> L = new ArrayList<>();// 배열을 List 변환 후 Collections.sort() 사용 후 다시 List를 배열로 변환
+//			Arrays.sort(arr);
 			for (int i = 0; i < arr.length; i++) {
-				L.add(arr[i]);
+				for (int j = i + 1; j < arr.length; j++) {
+					if (arr[i] > arr[j]) {
+						swap(arr, i, j);
+					}
+				}
 			}
-			Collections.sort(L);
-			for (int j = 0; j < arr.length; j++) {
-				arr[j] = L.get(j);
-			}
+//			List<Integer> L = new ArrayList<>();// 배열을 List 변환 후 Collections.sort() 사용 후 다시 List를 배열로 변환
+//			for (int i = 0; i < arr.length; i++) {
+//				L.add(arr[i]);
+//			}
+//			Collections.sort(L);
+//			for (int j = 0; j < arr.length; j++) {
+//				arr[j] = L.get(j);
+//			}
 		}
 
 		static void swap(int[] arr, int ind1, int ind2) {
@@ -59,7 +64,7 @@ public class Test_실습2_6정수배열정렬 {
 
 		static void reverse(int[] a) {
 			for (int i = 0; i < a.length / 2; i++) {
-				swap(a, i, a.length - 1 - i);//처음 인덱스 값과 마지막 인덱스 값의 치환 후 반을 기점으로 데칼코마니
+				swap(a, i, a.length - 1 - i);// 처음 인덱스 값과 마지막 인덱스 값의 치환 후 반을 기점으로 데칼코마니
 			}
 		}
 

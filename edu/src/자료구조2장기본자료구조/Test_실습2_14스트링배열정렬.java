@@ -34,10 +34,11 @@ public class Test_실습2_14스트링배열정렬 {
 //			arr[i] = L.get(i);
 //		}
 
-		for (int i = 0; i < arr.length - 1; i++) {// String.compareTo() 조건을 이용해서 양수일 경우(오름차순)의 정렬을 버블소팅을 이용해 구현
-			for (int j = 0; j < arr.length - i - 1; j++) {// 외부 반복문은 최악의 경우의 수인 전체길이 -1 반복, 내부 반복문은 한 세트 반복 후 마지막 인덱스에 가장 큰 값이 들어가기 때문에 최적화를 위해 반복조건 -i 추가
-				if (arr[j].compareTo(arr[j + 1]) > 0) {
-					swap(arr, j, j + 1);// 파라미터 배열에서 앞 인덱스와 뒤 인덱스 값의 치환
+		for (int i = 0; i < arr.length; i++) {// String.compareTo() 조건을 이용해서 양수일 경우(오름차순)의 정렬을 버블소팅을 이용해 구현
+			for (int j = i + 1; j < arr.length; j++) {// 외부 반복문은 최악의 경우의 수인 전체길이 -1 반복, 내부 반복문은 한 세트 반복 후 마지막 인덱스에 가장 큰
+														// 값이 들어가기 때문에 최적화를 위해 반복조건 -i 추가
+				if (arr[i].compareTo(arr[j]) > 0) {
+					swap(arr, i, j);// 파라미터 배열에서 앞 인덱스와 뒤 인덱스 값의 치환
 				}
 			}
 		}

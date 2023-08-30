@@ -15,8 +15,9 @@ public class 실습2_5메소드배열전달 {
 		}
 		int max = findMax(data);
 		System.out.println("\nmax = " + max);
-		boolean existValue = findValue(data, 3);
-		System.out.println("찾는 값 = " + 3 + "존재여부 = " + existValue);
+		int k = 3;
+		boolean existValue = findValue(data, k);
+		System.out.println("찾는 값 = " + k + " 존재여부 = " + existValue);
 	}
 
 	public static void inputData(int[] d) {// 로컬변수 d = data;, 메서드 종료 후 d는 stack에서 사라짐

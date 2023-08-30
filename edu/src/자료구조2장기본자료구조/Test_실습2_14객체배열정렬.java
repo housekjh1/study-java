@@ -23,12 +23,39 @@ class PhyscData2 implements Comparable<PhyscData2>{
 	}
 	
 	public void sortData(PhyscData2[] a) {
-		Arrays.sort(a);// 배열이므로 Arrays.sort() 사용가능
+//		Arrays.sort(a);// 배열이므로 Arrays.sort() 사용가능
+//		List<PhyscData2> L = new ArrayList<>();
+//		for (int i = 0; i < a.length; i++) {
+//			L.add(a[i]);
+//		}
+//		
+//		Collections.sort(L);
+//		
+//		for (int i = 0; i < a.length; i++) {
+//	        a[i] = L.get(i);
+//	    }// 소팅값 반환
+		for(int i = 0; i < a.length; i++) {
+			for(int j = i+1; j<a.length; j++) {
+				if(a[i].compareTo(a[j]) > 0) {// Override된 compareTo() 메서드 사용
+					PhyscData2 s = a[i];
+					a[i] = a[j];
+					a[j] = s;
+				}
+			}
+		}
 	}
 	
 	@Override
-	public int compareTo(PhyscData2 p) {// 소팅 조건을 오버라이드 된 compareTo() 조건으로 반영
-		return this.name.compareTo(p.name);
+	public int compareTo(PhyscData2 p) {// 소팅 조건을 오버라이드된 compareTo() 조건으로 반영
+		int result = this.name.compareTo(p.name);// String 클래스의 compareTo()메서드 사용
+		if (result != 0)
+			return result;
+
+	    int heightResult = this.height - p.height;
+	    if (heightResult != 0) return heightResult;
+
+	    int visionResult = Double.compare(this.vision, p.vision);
+	    return visionResult;
 	}
 	
 	@Override
