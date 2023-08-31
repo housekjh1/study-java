@@ -9,6 +9,11 @@
 - JDK 17 (필수)
 - Eclipse
 
+# Maven MySQL Connector J
+
+> 프로젝트 생성 후 우클릭 -> Configure -> Convert to Maven Project
+- [Maven Repository / mysql-connector-j / 8.0.33](https://mvnrepository.com/artifact/com.mysql/mysql-connector-j/8.0.33)
+
 ## Ref.
 
 - [gitignore](https://www.toptal.com/developers/gitignore)
