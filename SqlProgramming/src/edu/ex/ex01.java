@@ -160,7 +160,7 @@ public class ex01 {
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(string);
-            
+
             while (rs.next()) {
                 Data d = new Data();
                 d.setId(rs.getInt("id"));
