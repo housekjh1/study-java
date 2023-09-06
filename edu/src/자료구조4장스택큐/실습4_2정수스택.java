@@ -97,7 +97,10 @@ class IntStack {
 
 //--- 스택 안의 모든 데이터를 바닥 → 정상 순서로 표시 ---//
 	public void dump() {
-		//구현
+		for(int i = 0; i < ptr; i++) {
+			System.out.print(stk[i] + " ");
+		}
+		System.out.println();
 	}
 }
 
