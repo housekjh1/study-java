@@ -5,9 +5,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.Types;
 import java.util.Scanner;
 
-public class ex03 {
+public class ex04 {
 	public static void main(String[] args) {
 		Connection con = null;
 		try {
@@ -19,7 +20,7 @@ public class ex03 {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
 
-			myLang01(con);
+			getPercentage(con);
 
 			con.close();
 
@@ -28,15 +29,16 @@ public class ex03 {
 		}
 	}
 
-	private static void myLang01(Connection con) {
+	private static void getPercentage(Connection con) {
 		try {
-			String sql = "CALL nationLanguage01(?);";
+			String sql = "CALL nationLanguage02(?, ?)";
 			Scanner sc = new Scanner(System.in);
 			System.out.print("국가명을 입력하세요: ");
-			String my = sc.nextLine();// 나라 이름에 공백이 있을 시 next()는 온전히 입력받지 못함
+			String s = sc.nextLine();
 
 			CallableStatement cs = con.prepareCall(sql);
-			cs.setString(1, my);
+			cs.setString(1, s);
+			cs.registerOutParameter(2, Types.FLOAT);
 			ResultSet rs = cs.executeQuery();
 			ResultSetMetaData md = rs.getMetaData();
 
@@ -48,7 +50,8 @@ public class ex03 {
 					System.out.println();
 				}
 			}
-
+			System.out.println("=".repeat(80));
+			System.out.println(cs.getFloat(2));
 			rs.close();
 			cs.close();
 		} catch (Exception e) {
