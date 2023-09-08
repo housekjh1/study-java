@@ -69,16 +69,19 @@ public class 실습4_5원형큐 {
 	}
 
 	void print() {
-		// 구현
-		if (isEmpty) {
+	    // 큐가 비어 있는 경우 처리
+	    if (isEmpty) {
 	        System.out.println("큐가 비어 있습니다.");
 	        return;
 	    }
-	    int index = front;
-	    while (index != rear) {
-	        System.out.print(circleQueue[index] + " ");
-	        index = (index) % QUEUE_SIZE;
-	    }
+
+	    // front부터 rear까지 원형 큐를 순회하면서 출력
+	    int i = front;
+	    do {
+	        System.out.print(circleQueue[i] + " ");
+	        i = (i + 1) % QUEUE_SIZE;
+	    } while (i != rear);
+
 	    System.out.println();
 	}
 
