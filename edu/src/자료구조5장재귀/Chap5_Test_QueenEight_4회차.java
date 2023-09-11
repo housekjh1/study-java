@@ -3,13 +3,13 @@ package 자료구조5장재귀;
 //https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/?ref=lbp
 //N Queen problem / backtracking
 /*
-* 체스판은 8 x 8
-* 체스의 기물: king/가로세로대각선 1칸만 이동, queen/가로세로 대각선/같은 편의 기물을 넘을 수 없다,
-*  Rook/가로,세로 이동/다른 기물을 넘을 수없다, bishop/대각선, knight/1-2칸 이동/다른 기물을 넘을 수 있다,
-*  pawn/처음 이동은 2칸까지 가능, 그 후 한칸만 가능, 잡을 때는 대각선 가능
-*  체스판 최대 배치 문제 : king/16, Queen/8, rook/8, bishop/?, knight/?
-*  rook 2개/a, h, knight 2개/b, g, bishop 2개/c, f, queen 1개/black queen은 black 칸에, 폰 8개
-*/
+ * 체스판은 8 x 8
+ * 체스의 기물: king/가로세로대각선 1칸만 이동, queen/가로세로 대각선/같은 편의 기물을 넘을 수 없다,
+ *  Rook/가로,세로 이동/다른 기물을 넘을 수없다, bishop/대각선, knight/1-2칸 이동/다른 기물을 넘을 수 있다,
+ *  pawn/처음 이동은 2칸까지 가능, 그 후 한칸만 가능, 잡을 때는 대각선 가능
+ *  체스판 최대 배치 문제 : king/16, Queen/8, rook/8, bishop/?, knight/?
+ *  rook 2개/a, h, knight 2개/b, g, bishop 2개/c, f, queen 1개/black queen은 black 칸에, 폰 8개
+ */
 
 class Point {
 	private int ix;
@@ -35,6 +35,12 @@ class Point {
 	public void setY(int y) {
 		iy = y;
 	}
+
+	@Override
+	public String toString() {
+		return "(" + ix + ", " + iy + ")";
+	}
+
 }
 
 class Stack3 {
@@ -137,41 +143,64 @@ class Stack3 {
 public class Chap5_Test_QueenEight_4회차 {
 
 	public static void SolveQueen(int[][] d) {
-
-//		int count = 0, mode = 0;// 퀸의 갯수,
-//		int ix = 0, iy = 0;
-//		Stack3 st = new Stack3(10);
-//		Point p = new Point(ix, iy);
-//		d[ix][iy] = 1;
-//		count++;
-//		st.push(p);
-//
-//		while (count < 8) {
-//			ix++;
-//			int cy = 0;// 다음행으로, y를 루프로 체크
-//			while (ix < d.length) {
-//
-//				while (cy < d[0].length) {
-//
-//					st.push(px);
-//					count++;
-//					break;
-//
-//				}
-//				if (cy != d[0].length) {
-//					break;
-//				} else {
-//					p = st.pop();
-//					count--;
-//
-//				}
-//
-//			}
-//
-//		}
+		int count = 0, n = 8;// 놓은 퀸 갯수, 퀸을 놓아야하는 목표수
+		int x = 0, y = 0, q = 1;// 좌표 초기화
+		Stack3 s = new Stack3(n);// 좌표를 저장할 스택 생성
+		Point p = new Point(x, y);
+		
+		while (true) {
+			while (count < n) {
+				if (x == 0 && y >= d[0].length && s.isEmpty()) {
+					break;
+				}
+				y = NextMove(d, x, y);// 입력 행열에서 입력 행의 입력 열부터 검색
+				if (y != -1) {
+					d[x][y] = 1;// 퀸을 놓는다
+					count++;// 퀸 카운트 증가
+					s.push(new Point(x, y));
+					x++;// 다음 행으로 이동
+					y = 0;// 열 초기화
+				} else {
+					if (s.isEmpty()) {// 퀸을 놓을 자리가 아무곳도 없으면 break;
+						break;
+					} else {
+						p = s.pop();// 이전 좌표 가져오기
+						x = p.getX();
+						y = p.getY();
+						d[x][y] = 0;// 이전 좌표 퀸 빼기
+						count--;// 퀸 카운트 감소
+						y++;// 다음 열 찾기
+					}
+				}
+			}
+			if (x == 0 && y >= d[0].length && s.isEmpty()) {
+				System.out.println(" 풀이가 모두 끝났습니다.");
+				break;
+			}
+			System.out.println(" 풀이: " + q++);
+			showQueen(d);
+			System.out.println();
+			s.dump();
+			System.out.println();
+			p = s.pop();
+			x = p.getX();
+			y = p.getY();
+			d[x][y] = 0;
+			count--;
+			y++;
+		}
 	}
 
-	public static boolean checkRow(int[][] d, int crow) {// 행 체크
+	private static void showQueen(int[][] d) {
+		for (int[] element : d) {
+			for (int j = 0; j < d[0].length; j++) {
+				System.out.print(" " + element[j]);
+			}
+			System.out.println();
+		}
+	}
+
+	public static boolean checkRow(int[][] d, int crow) {
 		for (int i = 0; i < d[0].length; i++) {
 			if (d[crow][i] == 1)
 				return false;
@@ -179,7 +208,7 @@ public class Chap5_Test_QueenEight_4회차 {
 		return true;
 	}
 
-	public static boolean checkCol(int[][] d, int ccol) {// 열 체크
+	public static boolean checkCol(int[][] d, int ccol) {
 		for (int i = 0; i < d.length; i++) {
 			if (d[i][ccol] == 1)
 				return false;
@@ -187,91 +216,51 @@ public class Chap5_Test_QueenEight_4회차 {
 		return true;
 	}
 
-	public static boolean checkDiagSE(int[][] d, int cx, int cy) {// x++, y++ or x--, y--, 대각선 체크
-		int x = cx;
-	    int y = cy;
-
-	    // 오른쪽 아래 방향 대각선 체크
-	    while (x < d.length - 1 && y < d[0].length - 1 && x > 0 && y > 0) {
-	        x++;
-	        y++;
-	        if (d[x][y] == 1) return false;
-	    }
-
-	    x = cx;
-	    y = cy;
-
-	    // 왼쪽 위 방향 대각선 체크
-	    while (x < d.length - 1 && y < d[0].length - 1 && x > 0 && y > 0) {
-	        x--;
-	        y--;
-	        if (d[x][y] == 1) return false;
-	    }
-	    
-	    return true;
+	public static boolean checkDiagSW(int[][] d, int cx, int cy) { // x++, y-- or x--, y++ where 0<= x,y <= 7
+		for (int ix = cx, iy = cy; ix < d.length && iy >= 0; ix++, iy--) {
+			if (d[ix][iy] == 1)
+				return false;
+		}
+		for (int ix = cx, iy = cy; ix >= 0 && iy < d[0].length; ix--, iy++) {
+			if (d[ix][iy] == 1)
+				return false;
+		}
+		return true;
 	}
 
-	public static boolean checkDiagSW(int[][] d, int cx, int cy) { // x++, y-- or x--, y++ where 0<= x,y <= 7, 대각선 체크
-		int x = cx;
-	    int y = cy;
-
-	    // 왼쪽 아래 방향 대각선 체크
-	    while (x < d.length - 1 && y < d[0].length - 1 && x > 0 && y > 0) {
-	        x++;
-	        y--;
-	        if (d[x][y] == 1)
-	            return false;
-	    }
-
-	    x = cx;
-	    y = cy;
-
-	    // 오른쪽 위 방향 대각선 체크
-	    while (x < d.length - 1 && y < d[0].length - 1 && x > 0 && y > 0) {
-	        x--;
-	        y++;
-	        if (d[x][y] == 1)
-	            return false;
-	    }
-
-	    return true;
+	public static boolean checkDiagSE(int[][] d, int cx, int cy) {// x++, y++ or x--, y--
+		for (int ix = cx, iy = cy; ix < d.length && iy < d[0].length; ix++, iy++) {
+			if (d[ix][iy] == 1)
+				return false;
+		}
+		for (int ix = cx, iy = cy; ix >= 0 && iy >= 0; ix--, iy--) {
+			if (d[ix][iy] == 1)
+				return false;
+		}
+		return true;
 	}
 
 	public static boolean CheckMove(int[][] d, int x, int y) {// (x,y)로 이동 가능한지를 check
-		
-		return checkRow(d, x) && checkCol(d, y) && checkDiagSE(d, x, y) && checkDiagSW(d, x, y);
-
+		return checkRow(d, x) && checkCol(d, y) && checkDiagSW(d, x, y) && checkDiagSE(d, x, y);
 	}
 
-	public static Point NextMove(int[][] d, int row, int col) {// 다음 row에 대하여 이동할 col을 조사
-		int x = row;
-		int y = col;
-		while (x < d.length - 1) {// 마지막 행에서는 검사할 이유가 없음
-			x++;
-			y = 0;
-			while (y < d[0].length) {
-				if (CheckMove(d, x, y))
-					return new Point(x, y);
-				y++;
+	public static int NextMove(int[][] d, int row, int col) {// 다음 row에 대하여 이동할 col을 조사
+		for (int i = col; i < d[0].length; i++) {
+			if (CheckMove(d, row, i)) {
+				return i;
 			}
 		}
-		return null;
+		return -1;
 	}
 
 	public static void main(String[] args) {
-		int row = 8, col = 8;// 체스판 초기화
+		int row = 8, col = 8;
 		int[][] data = new int[8][8];
 		for (int i = 0; i < data.length; i++)
 			for (int j = 0; j < data[0].length; j++)
 				data[i][j] = 0;
 
-		SolveQueen(data);// 풀이
+		SolveQueen(data);
 
-		for (int[] element : data) {// 출력
-			for (int j = 0; j < data[0].length; j++) {
-				System.out.print(" " + element[j]);
-			}
-			System.out.println();
-		}
 	}
 }
