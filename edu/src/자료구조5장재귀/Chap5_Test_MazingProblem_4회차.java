@@ -145,27 +145,30 @@ public class Chap5_Test_MazingProblem_4회차 {
 		mark[temp.x][temp.y] = 2;// 미로 찾기 궤적은 2로 표시
 		st.push(temp);
 
-		int i, j, g, h;
-		int c = 0;
+		int i = 0;
+		int j = 0;
+		int g = 0;
+		int h = 0;
 		int d = 0;
-		Items3 tmp = st.pop();
-		
+		int c = 0;
+		Items3 tmp;
+
 		while (!st.isEmpty()) // stack not empty
 		{
-			 // unstack, 현재 위치 가져오기
-			
-			if (c >= 8 && st.size() == 1) {
-				i = tmp.x;
-				j = tmp.y;
-				d = 0;
-			}
-			else {
-				tmp = st.pop();
+
+			if (c >= 8) {
+				tmp = st.pop();// unstack, 현재 위치 가져오기
 				i = tmp.x;
 				j = tmp.y;
 				d = tmp.dir;
-				mark[i][j] = 1;
+				mark[i][j] = 1;// backtracking 궤적은 1로 표시
 			}
+
+			tmp = st.peek();
+			i = tmp.x;
+			j = tmp.y;
+			d = tmp.dir;
+
 			c = 0;
 
 			while (c < 8) // moves forward
@@ -185,16 +188,15 @@ public class Chap5_Test_MazingProblem_4회차 {
 					i = g;
 					j = h;
 					c = 0;
-
 				} else {
 					d++;
 					d %= 8;
 					c++;
 				}
-
 			}
 		}
 		System.out.println("no path in maze ");
+
 	}
 
 	static void showMatrix(int[][] d, int row, int col) {
@@ -223,7 +225,8 @@ public class Chap5_Test_MazingProblem_4회차 {
 				{ 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1 },
 				{ 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0 },
 				{ 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0 },
-				{ 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0 } };
+				{ 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0 }
+		};
 		for (int ia = 0; ia < 8; ia++)
 			moves[ia] = new Offsets3(0, 0);// 배열에 offsets 객체를 치환해야 한다.
 			moves[0].a = -1; moves[0].b = 0;
@@ -256,11 +259,20 @@ public class Chap5_Test_MazingProblem_4회차 {
 		System.out.println("maze[12,15]::");
 		showMatrix(maze, 13, 16);
 
-//			System.out.println("mark::");
-//			showMatrix(mark, 13, 16);
-
-		path(maze, mark, 13, 16);
 		System.out.println("mark::");
 		showMatrix(mark, 13, 16);
+
+		path(maze, mark, 13, 16);
+		clearing(mark);
+		System.out.println("mark::");
+		showMatrix(mark, 13, 16);
+	}
+
+	private static void clearing(int[][] mark) {
+		for (int i = 1; i < mark.length - 1; i++) {
+			for (int j = 1; j < mark[0].length - 1; j++) {
+				if (mark[i][j] == 1) mark[i][j] = 0;
+			}
+		}
 	}
 }
