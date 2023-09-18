@@ -16,14 +16,10 @@ class 실습6_6ShellSort {
 					a[j + h] = a[j];
 					count++;
 				}
-				System.out.println("h = " + h + ", tmp = " + tmp + ", a[j+h] = " + a[j + h]);
 				a[j + h] = tmp;
-				for (int na : a)
-					System.out.print(" " + na);
-				System.out.println();
 			}
-			System.out.println("비교 횟수 : " + count);
 		}
+		System.out.println("비교 횟수 : " + count);
 	}
 
 	public static void main(String[] args) {

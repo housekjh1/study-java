@@ -9,10 +9,11 @@ class 실습6_5InsertionSort {
 	static void insertionSort(int[] a, int n) {
 		int count = 0;
 		for (int i = 1; i < n; i++) {
-			int j;
+			int j = i;
 			int tmp = a[i];
-			for (j = i; j > 0 && a[j - 1] > tmp; j--) {
+			while (j > 0 && a[j - 1] > tmp) {
 				a[j] = a[j - 1];
+				j--;
 				count++;
 			}
 			a[j] = tmp;
