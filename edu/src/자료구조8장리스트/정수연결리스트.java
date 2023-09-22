@@ -24,38 +24,83 @@ class LinkedList1 {
 
 	public int Delete(int element) // delete the element
 	{
+		Node1 p = first, q = null;
 
+		while (p != null) {
+			if (p.data == element) {
+				if (p == first) {
+					first = p.next;
+				} else {
+					q.next = p.next;
+				}
+				return 1;
+			} else {
+				q = p;
+				p = p.next;
+			}
+		}
+		return -1;
 	}
 
 	public void Show() { // 전체 리스트를 순서대로 출력한다.
+		Node1 tmp = first;
 
+		while (tmp != null) {
+			System.out.print(tmp.data + " -> ");
+			tmp = tmp.next;
+		}
+		System.out.println();
 	}
 
 	public void Add(int element) // 임의 값을 삽입할 때 리스트가 오름차순으로 정렬이 되도록 한다
 	{
 		// 1. 일반적으로 중간에 삽입 구현 -> 미완
-		// 2. 처음, 마지막에 삽입이 되는 것을 check -> 구현 필요 
+		// 2. 처음, 마지막에 삽입이 되는 것을 check -> 구현 필요
 		Node1 tmp = new Node1(element);
-		Node1 p = first, q = null;
-		while(p != null) {
-			if(p.data < element) {
-				q = p;
-				p = p.next;
-			} else {
-				tmp.next = p;// 1번 처리
-				q.next = tmp;
-			}
-		}
-		first = tmp;
+	    Node1 p = first, q = null;
+
+	    if (first == null) {// 초기값
+	        first = tmp;
+	        return;
+	    }
+
+	    if (element <= first.data) {// 가장 작은 값의 노드를 추가
+	        tmp.next = first;
+	        first = tmp;
+	        return;
+	    }
+
+	    while (p != null) {
+	        if (p.data < element) {// 중간 값 처리
+	            q = p;
+	            p = p.next;
+	        } else {
+	            tmp.next = p;
+	            q.next = tmp;
+	            return;
+	        }
+	    }
+
+	    // 새 노드의 값이 가장 큰 경우
+	    q.next = tmp;
 	}
 
 	public boolean Search(int data) { // 전체 리스트를 순서대로 출력한다.
-		return true;
+		Node1 p = first;
+		
+		while (p != null) {
+			if (p.data == data) {
+				return true;
+			} else {
+				p = p.next;
+			}
+		}
+		return false;
 	}
 }
 
 public class 정수연결리스트 {
-	enum Menu {
+	enum Menu {// enable numbering
 		Add("삽입"), Delete("삭제"), Show("인쇄"), Search("검색"), Exit("종료");
 
 		private final String message; // 표시할 문자열
@@ -99,14 +144,14 @@ public class 정수연결리스트 {
 		LinkedList1 l = new LinkedList1();
 		Scanner sc = new Scanner(System.in);
 		int data = 0;
-		System.out.println("inserted");
-		l.Show();
+//		System.out.println("inserted");
+//		l.Show();
 		do {
 			switch (menu = SelectMenu()) {
 			case Add: // 머리노드 삽입
 				data = rand.nextInt(20);
-				//double d = Math.random();
-				//data = (int) (d * 50);
+				// double d = Math.random();
+				// data = (int) (d * 50);
 				l.Add(data);
 				break;
 			case Delete: // 머리 노드 삭제
@@ -131,4 +176,3 @@ public class 정수연결리스트 {
 		} while (menu != Menu.Exit);
 	}
 }
-
