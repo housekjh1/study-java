@@ -144,56 +144,6 @@ class Tree {
 	}
 
 	boolean delete(int num) {
-//		TreeNode p = root, q = null;
-//
-//		while (p != null) {
-//			if (p.data > num) {
-//				q = p;
-//				p = p.LeftChild;
-//			} else if (p.data < num) {
-//				q = p;
-//				p = p.RightChild;
-//			} else {
-//				break;
-//			}
-//		}
-//		if (p.data == num && isLeafNode(p)) {
-//			p = null;
-//			return true;
-//		} else if (p.data == num && HasOnlyRightChild(p)) {
-//			q.RightChild = p.RightChild;
-//			p = null;
-//			return true;
-//		} else if (p.data == num && HasOnlyLeftChild(p)) {
-//			q.LeftChild = p.LeftChild;
-//			p = null;
-//			return true;
-//		} else if (p.data == num && HasFullChild(p)) {
-//			TreeNode p1 = p, q1 = null;
-//			while (p1 != null) {// inorderPredecessor의 위치까지 p1과 q1이 가야함
-//				if (p1.data > inorderPredecessor(p).data) {
-//					q1 = p1;
-//					p1 = p1.LeftChild;
-//				} else if (p1.data < inorderPredecessor(p).data) {
-//					q1 = p1;
-//					p1 = p1.RightChild;
-//				} else {
-//					break;
-//				}
-//			}
-//			if (p1.data == inorderPredecessor(p).data && isLeafNode(p1)) {
-//				p.data = p1.data;
-//				p1 = null;
-//				return true;
-//			} else if (p1.data == inorderPredecessor(p).data && HasOnlyLeftChild(p1)) {
-//				p.data = p1.data;
-//				p1.data = p1.LeftChild.data;
-//				p1.LeftChild = null;
-//				return true;
-//			} else return false;
-//		}
-//		
-//		else return false;
 		
 		TreeNode p = root, q = null;
 
@@ -263,6 +213,22 @@ class Tree {
 	}
 
 	boolean search(int num) {
+		
+		TreeNode current = root;
+	    while (current != null) {
+	        if (num == current.data) {
+	            // 현재 노드의 데이터가 찾는 데이터와 일치하면 true 반환
+	            return true;
+	        } else if (num < current.data) {
+	            // 찾는 데이터가 현재 노드의 데이터보다 작으면 왼쪽 서브트리에서 검색
+	            current = current.LeftChild;
+	        } else {
+	            // 찾는 데이터가 현재 노드의 데이터보다 크면 오른쪽 서브트리에서 검색
+	            current = current.RightChild;
+	        }
+	    }
+	    // 노드를 찾지 못한 경우 false 반환
+	    return false;
 
 	}
 }
