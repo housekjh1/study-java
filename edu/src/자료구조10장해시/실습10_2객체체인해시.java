@@ -21,14 +21,15 @@ class SimpleObject5 {
 		return name;
 	}
 
+	// --- 문자열 표현을 반환 ---//
 	@Override
 	public String toString() {
-		return "(" + no + "), " + name;
+		return "(" + no + ") " + name;
 	}
 
 	public SimpleObject5() {
-		this.no = null;
-		this.name = null;
+		no = null;
+		name = null;
 	}
 
 	public SimpleObject5(String no, String name) {
@@ -36,34 +37,38 @@ class SimpleObject5 {
 		this.name = name;
 	}
 
-	public void scanData(String guide, int sw) {
+	// --- 데이터를 읽어 들임 ---//
+	void scanData(String guide, int sw) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println(guide + "할 데이터를 입력하세요." + sw);
-		if ((sw & NO) == NO) {
+
+		if ((sw & NO) == NO) { // & 는 bit 연산자임
 			System.out.print("번호: ");
-			this.no = sc.next();
+			no = sc.next();
 		}
 		if ((sw & NAME) == NAME) {
 			System.out.print("이름: ");
-			this.name = sc.next();
+			name = sc.next();
 		}
 	}
 
+	// --- 회원번호로 순서를 매기는 comparator ---//
 	public static final Comparator<SimpleObject5> NO_ORDER = new NoOrderComparator();
 
 	private static class NoOrderComparator implements Comparator<SimpleObject5> {
 		@Override
-		public int compare(SimpleObject5 o1, SimpleObject5 o2) {
-			return (o1.no.compareTo(o2.no) > 0) ? 1 : (o1.no.compareTo(o2.no) < 0) ? -1 : 0;
+		public int compare(SimpleObject5 d1, SimpleObject5 d2) {
+			return (d1.no.compareTo(d2.no) > 0) ? 1 : (d1.no.compareTo(d2.no) < 0) ? -1 : 0;
 		}
 	}
 
+	// --- 이름으로 순서를 매기는 comparator ---//
 	public static final Comparator<SimpleObject5> NAME_ORDER = new NameOrderComparator();
 
 	private static class NameOrderComparator implements Comparator<SimpleObject5> {
 		@Override
-		public int compare(SimpleObject5 o1, SimpleObject5 o2) {
-			return (o1.name.compareTo(o2.name) > 0) ? 1 : (o1.name.compareTo(o2.name) < 0) ? -1 : 0;
+		public int compare(SimpleObject5 d1, SimpleObject5 d2) {
+			return d1.name.compareTo(d2.name);
 		}
 	}
 }
@@ -75,6 +80,9 @@ class ChainHash5 {
 		private Node2 next; // 뒤쪽 포인터(뒤쪽 노드에 대한 참조)
 		// --- 생성자(constructor) ---//
 
+		public Node2(SimpleObject5 data) {
+			this.data = data;
+		}
 	}
 
 	private int size; // 해시 테이블의 크기
@@ -82,27 +90,74 @@ class ChainHash5 {
 
 //--- 생성자(constructor) ---//
 	public ChainHash5(int capacity) {
-
+		size = capacity;
+		try {
+			table = new Node2[size];
+		} catch (OutOfMemoryError e) {
+			size = 0;
+		}
 	}
 
 //--- 키값이 key인 요소를 검색(데이터를 반환) ---//
 	public int search(SimpleObject5 st, Comparator<? super SimpleObject5> c) {
-
+		Node2 p = table[Integer.parseInt(st.no) % size], q = null;
+		while (p != null) {
+			if (c.compare(st, p.data) == 0) {
+				return 1;
+			}
+			q = p;
+			p = p.next;
+		}
+		return -1;
 	}
 
 //--- 키값이 key인 데이터를 data의 요소로 추가 ---//
 	public int add(SimpleObject5 st, Comparator<? super SimpleObject5> c) {
-
+		Node2 p = table[Integer.parseInt(st.no) % size], q = null;
+		while (p != null) {
+			if (c.compare(st, p.data) == 0) {
+				return 1;
+			}
+			q = p;
+			p = p.next;
+		}
+		Node2 tmp = new Node2(st);
+		if (q == null)
+			table[Integer.parseInt(st.no) % size] = tmp;
+		else
+			q.next = tmp;
+		return 0;
 	}
 
 //--- 키값이 key인 요소를 삭제 ---//
 	public int delete(SimpleObject5 st, Comparator<? super SimpleObject5> c) {
-
+		Node2 p = table[Integer.parseInt(st.no) % size], q = null;
+		while (p != null) {
+			if (c.compare(st, p.data) == 0) {
+				if (q == null) {
+					table[Integer.parseInt(st.no) % size] = p.next;
+				} else {
+					q.next = p.next;
+				}
+				return 1;
+			}
+			q = p;
+			p = p.next;
+		}
+		return -1;
 	}
 
 //--- 해시 테이블을 덤프(dump) ---//
 	public void dump() {
-
+		for (int i = 0; i < size; i++) {
+			Node2 p = table[i];
+			System.out.printf("%02d", i);
+			while (p != null) {
+				System.out.printf(" -> %s", p.data);
+				p = p.next;
+			}
+			System.out.println();
+		}
 	}
 }
 
