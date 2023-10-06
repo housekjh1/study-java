@@ -155,7 +155,7 @@ class Queue {
 		QueueNode p = rear, q = null;
 		QueueNode tmp = new QueueNode(y, null);
 		if (rear == null) {
-			rear.data = y;
+			rear = tmp;
 			front = rear;
 			return;
 		}
@@ -174,7 +174,23 @@ class Queue {
 		}
 		int tmp = front.data;
 		front = front.link;
+		if (front == null) {// 딜리트 후 큐가 비었을 경우 rear를 null처리하지 않으면 인서트 시 rear가 초기화되지않아 구현실패
+			rear = null;
+		}
 		return tmp;
+	}
+	
+	void showQueue() {
+		if (front == null) {
+			System.out.println("큐가 비었습니다.");
+			return;
+		}
+		QueueNode p = front;
+		while (p != null) {
+			System.out.print(p.data + " ");
+			p = p.link;
+		}
+		System.out.println();
 	}
 }
 
@@ -211,7 +227,7 @@ class Stack {
 		StackNode p = top, q = null;
 		StackNode tmp = new StackNode(y, null);
 		if (top == null) {
-			top.data = y;
+			top = tmp;
 			return;
 		}
 		while (p != null) {
@@ -243,6 +259,19 @@ class Stack {
 		q.link = null;
 		p = null;
 		return tmp;
+	}
+
+	void showStack() {
+		if (top == null) {
+			System.out.println("스택이 비었습니다.");
+			return;
+		}
+		StackNode p = top;
+		while (p != null) {
+			System.out.print(p.data.data + " ");
+			p = p.link;
+		}
+		System.out.println();
 	}
 }
 
@@ -310,18 +339,39 @@ class Graph {
 	}
 
 	void BFS(int v) {
-		boolean[] visited = new boolean[n]; // visited is declared as a Boolean
+//		boolean[] visited = new boolean[n]; // visited is declared as a Boolean
 		for (int i = 0; i < n; i++)
 			visited[i] = false; // initially, no vertices have been visited
 		// 구현할 부분
-	}
+		// BFS에 사용할 큐를 생성합니다.
+		Queue queue = new Queue();
+		int[] result = new int[n];
+		int i = 0;
+		// 시작 노드를 큐에 추가하고 방문 표시를 합니다.
+		queue.Insert(v);
+		visited[v] = true;
 
-	void ShowList(List l) {
-		ListIterator li = new ListIterator(l);
-		// 구현할 부분
-		while (li.NotNull()) {
-			System.out.print(li.getCurrent().data + " -> ");
-			li.Next();
+		System.out.println("Queue:");
+
+		while (!queue.IsEmpty()) {
+			queue.showQueue();
+			// 큐에서 노드를 꺼내어 방문합니다.
+			int a = queue.Delete();
+//			System.out.print(a + " ");
+			result[i++] = a;
+			// 현재 노드의 인접한 노드를 큐에 추가합니다.
+			ListIterator li = new ListIterator(HeadNodes[a]);
+			while (li.NotNull()) {
+				int w = li.Next();
+				if (!visited[w]) {
+					queue.Insert(w);
+					visited[w] = true;
+				}
+			}
+		}
+		System.out.println("BFS 순서:");
+		for (int j = 0; j < n; j++) {
+			System.out.print(result[j] + " ");
 		}
 		System.out.println();
 	}
@@ -333,8 +383,6 @@ class Graph {
 
 		// _DFS(v); // start search at vertex 0
 		_NonRecursiveDFS(v);
-		ListIterator li = new ListIterator(HeadNodes[v]);
-		ShowList(li.getList());
 	}
 
 	// Workhorse
@@ -362,7 +410,37 @@ class Graph {
 	// visit all previously unvisited vertices that are reachable from vertex v
 	{
 		// 구현할 부분
+		Stack stack = new Stack();
+		int[] result = new int[n];
+		int i = 0;
+		stack.StackEmpty();
+		stack.Insert(new ListNode(v)); // 초기 노드를 스택에 넣어 시작합니다.
+		System.out.println("Stack:");
+		while (!stack.IsEmpty()) {
+			stack.showStack();
+			ListNode tmp = stack.Delete(); // 스택에서 노드를 꺼내고 방문 처리합니다.
+			v = tmp.data; // 현재 방문한 노드를 업데이트합니다.
 
+			if (!visited[v]) {
+				visited[v] = true;
+//				System.out.print(v + " ");
+				result[i++] = v;
+
+				// 현재 노드와 인접한 노드를 스택에 넣습니다.
+				ListIterator li = new ListIterator(HeadNodes[v]);
+				while (li.NotNull()) {
+					int w = li.Next();
+					if (!visited[w]) {
+						stack.Insert(new ListNode(w));
+					}
+				}
+			}
+		}
+		System.out.println("DFS 순서:");
+		for (int j = 0; j < n; j++) {
+			System.out.print(result[j] + " ");
+		}
+		System.out.println();
 	}
 }
 
