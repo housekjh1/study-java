@@ -282,9 +282,9 @@ public class BinaryTree_int {
 			case Add: // 노드 삽입
 				System.out.println("The number of items = ");
 				count = stdIn.nextInt();
-				int[] input = new int[10];
+				int[] input = new int[30];
 				for (int ix = 0; ix < count; ix++) {
-					input[ix] = rand.nextInt(9) + 1;
+					input[ix] = rand.nextInt(30) + 1;
 				}
 				for (int i = 0; i < count; i++) {
 					if (!t.insert(input[i]))
